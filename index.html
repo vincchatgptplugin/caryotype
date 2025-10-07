@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jeu Caryotype</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="confetti" aria-hidden="true"></canvas>
+    <main id="app">
+      <section id="start-screen" class="screen active" aria-labelledby="title">
+        <div class="card">
+          <h1 id="title">Jeu Caryotype</h1>
+          <p class="subtitle">Ranger les chromosomes, puis trouver la bonne zone du gène.</p>
+          <div class="time-select">
+            <p>Durée de la partie</p>
+            <div class="btn-row">
+              <button class="btn time" data-minutes="2">2 min</button>
+              <button class="btn time" data-minutes="5">5 min</button>
+              <button class="btn time" data-minutes="10">10 min</button>
+            </div>
+          </div>
+          <button id="start-btn" class="btn primary" disabled>Commencer</button>
+        </div>
+      </section>
+
+      <section id="game-screen" class="screen" aria-live="polite">
+        <header class="hud">
+          <div class="hud-item"><span>Score</span><strong id="score">0</strong></div>
+          <div class="hud-item"><span>Temps</span><strong id="timer">00:00</strong></div>
+          <div class="hud-item"><button id="reset-btn" class="btn ghost">Réinitialiser</button></div>
+        </header>
+
+        <div id="prompt" class="prompt"></div>
+
+        <section id="arrange" class="stage">
+          <h2>Étape 1 — Range par taille et par paires</h2>
+          <p class="hint">Range par paires ET par taille: du plus grand (1) au plus petit (4).</p>
+          <div class="board">
+            <div id="slots" class="slots" aria-label="Emplacements caryotype" role="list">
+              <!-- 8 slots (1,1,2,2,3,3,4,4) -->
+            </div>
+            <div id="pool" class="pool" aria-label="Chromosomes à placer" role="list"></div>
+          </div>
+          <div class="actions">
+            <button id="check-order" class="btn" disabled>Valider l'ordre</button>
+          </div>
+        </section>
+
+        <section id="question" class="stage hidden">
+          <h2>Étape 2 — Trouve la zone du gène</h2>
+          <p id="question-text" class="question">…</p>
+          <p class="hint">1) Clique d'abord sur le BON chromosome. 2) Dans le zoom, clique la petite zone lumineuse sur une patte.</p>
+        </section>
+      </section>
+
+      <section id="end-screen" class="screen" aria-live="polite">
+        <div class="card">
+          <h2>Temps écoulé !</h2>
+          <p>Score final : <strong id="final-score">0</strong></p>
+          <div class="btn-row">
+            <button id="again-btn" class="btn primary">Rejouer</button>
+            <button id="home-btn" class="btn">Accueil</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Zoom modal for chromosome -->
+    <div id="zoom" class="modal hidden" role="dialog" aria-modal="true" aria-label="Zoom chromosome">
+      <div class="zoom-card">
+        <div class="zoom-chromosome">
+          <img src="assets/chromosome_alt.svg" alt="Chromosome zoom" class="art" draggable="false" />
+          <button id="zoom-zone" type="button" class="zone"></button>
+        </div>
+        <p class="hint">Clique la petite zone lumineuse.</p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
